@@ -5,8 +5,9 @@
 <title>Luxury Mobile Bartending</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
 <style>
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -14,19 +15,14 @@ body {
   color: white;
   text-align: center;
 }
-</style>
+
 header {
   padding: 50px 20px;
-  background: rgba(0,0,0,0.6);
 }
 
 h1 {
   color: #d4af37;
-  font-size: 42px;
-}
-
-.subtitle {
-  font-size: 20px;
+  font-size: 40px;
 }
 
 button {
@@ -35,36 +31,36 @@ button {
   border: none;
   padding: 15px 30px;
   border-radius: 30px;
-  font-size: 18px;
   font-weight: bold;
+  font-size: 17px;
 }
 
 .card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid #d4af37;
+  background: #1c1c1c;
+  border: 2px solid #d4af37;
   border-radius: 20px;
-  margin: 25px auto;
-  padding: 25px;
+  padding: 20px;
+  margin: 20px auto;
   width: 85%;
-  max-width: 450px;
+  max-width: 420px;
 }
 
-.card h2 {
+h2 {
   color: #d4af37;
 }
 
 .drink {
-  background: rgba(0,0,0,0.4);
+  background: #111;
   padding: 15px;
+  margin: 15px;
   border-radius: 15px;
-  margin: 15px 0;
 }
 
 input, select, textarea {
   width: 90%;
-  padding: 14px;
+  padding: 12px;
   margin: 8px;
-  border-radius: 12px;
+  border-radius: 10px;
   border: none;
   font-size: 16px;
 }
@@ -77,36 +73,37 @@ textarea {
 
 </head>
 
+
 <body>
 
 <header>
 
 <h1>Luxury Mobile Bartending</h1>
 
-<p class="subtitle">
-Handcrafted Cocktails for every celebration
-</p>
+<p>Handcrafted Cocktails for every celebration</p>
 
-<button>
-Order Drinks
-</button>
+<button>Order Drinks</button>
 
 </header>
 
 
 <div class="card">
 
-<h2>Signature Drink Menu</h2>
+<h2>Signature Drinks</h2>
+
 
 <div class="drink">
 <h3>🍹 Paloma</h3>
 <p>Tequila, grapefruit, fresh lime</p>
 </div>
 
+
 <div class="drink">
 <h3>💙 Blue Pineapple Margarita</h3>
 <p>Tequila, pineapple juice, lime, blue citrus</p>
 </div>
+
+
 <div class="drink">
 <h3>🌅 Tequila Sunrise</h3>
 <p>Tequila, orange juice, grenadine</p>
@@ -124,7 +121,7 @@ Order Drinks
 
 <div class="card">
 
-<h2>Place Your Order</h2>
+<h2>Order Drinks</h2>
 
 <input id="name" placeholder="Your Name">
 
@@ -132,30 +129,28 @@ Order Drinks
 <select id="drink">
 
 <option>Paloma</option>
-
 <option>Blue Pineapple Margarita</option>
-
 <option>Tequila Sunrise</option>
-
 <option>Kids Shark Attack</option>
 
 </select>
 
 
-<textarea id="notes" placeholder="Special requests (extra lime, less ice, etc.)"></textarea>
+<textarea id="notes" placeholder="Special requests"></textarea>
 
 
-<button onclick="sendOrder()">
-Send Order
-</button>
-
+<button onclick="sendOrder()">Place Order</button>
 
 <p id="message"></p>
 
 </div>
+
+
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
@@ -183,9 +178,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 
-window.sendOrder = function() {
+window.sendOrder = function(){
 
-let order = {
+push(ref(database,"orders"),{
 
 name: document.getElementById("name").value,
 
@@ -195,17 +190,12 @@ notes: document.getElementById("notes").value,
 
 time: new Date().toLocaleString()
 
-};
+});
 
 
-push(ref(database, "orders"), order);
+document.getElementById("message").innerHTML="✅ Order Sent!";
 
-
-document.getElementById("message").innerHTML =
-"✅ Order sent!";
-
-};
-
+}
 
 </script>
 
