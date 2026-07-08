@@ -1,133 +1,220 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Luxury Mobile Bartending</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Mobile Bartending</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(#111, #2b1f0f);
+  background: linear-gradient(135deg, #080808, #2b210f);
   color: white;
   text-align: center;
-  padding: 20px;
+}
+
+header {
+  padding: 50px 20px;
+  background: rgba(0,0,0,0.6);
 }
 
 h1 {
   color: #d4af37;
-  font-size: 35px;
+  font-size: 42px;
+  margin-bottom: 10px;
 }
 
-h2 {
-  color: #d4af37;
-}
-
-.card {
-  background: rgba(34,34,34,0.95);
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 15px;
-  max-width: 420px;
+.subtitle {
+  font-size: 20px;
 }
 
 button {
   background: #d4af37;
   color: black;
-  font-weight: bold;
-  width: 90%;
-  padding: 12px;
-  border-radius: 8px;
   border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212,175,55,0.5);
+  border-radius: 20px;
+  margin: 25px auto;
+  padding: 25px;
+  width: 85%;
+  max-width: 450px;
+}
+
+.card h2 {
+  color: #d4af37;
+}
+
+.drink {
+  background: rgba(0,0,0,0.4);
+  padding: 15px;
+  border-radius: 15px;
+  margin: 15px 0;
 }
 
 input, select, textarea {
   width: 90%;
-  padding: 12px;
+  padding: 14px;
   margin: 8px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
+  font-size: 16px;
 }
+
+textarea {
+  height: 80px;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<header>
+
 <h1>Luxury Mobile Bartending</h1>
-<p>Handcrafted Cocktails for every celebration</p>
+
+<p class="subtitle">
+Handcrafted Cocktails for every celebration
+</p>
+
+<button>
+Order Drinks
+</button>
+
+</header>
+
 
 <div class="card">
-<h2>Drink Menu</h2>
 
-<p>🍹 <b>Paloma</b><br>
-Tequila, grapefruit, fresh lime</p>
+<h2>Signature Drink Menu</h2>
 
-<p>🍸 <b>Blue Pineapple Margarita</b><br>
-Tequila, pineapple juice, lime, blue citrus</p>
 
-<p>🌅 <b>Tequila Sunrise</b><br>
-Tequila, orange juice, grenadine</p>
+<div class="drink">
+<h3>🍹 Paloma</h3>
+<p>Tequila, grapefruit, fresh lime</p>
+</div>
 
-<p>🦈 <b>Kids Shark Attack</b><br>
-Blue raspberry, lemonade, fun shark theme</p>
+
+<div class="drink">
+<h3>💙 Blue Pineapple Margarita</h3>
+<p>Tequila, pineapple juice, lime, blue citrus</p>
+</div>
+<div class="drink">
+<h3>🌅 Tequila Sunrise</h3>
+<p>Tequila, orange juice, grenadine</p>
+</div>
+
+
+<div class="drink">
+<h3>🦈 Kids Shark Attack</h3>
+<p>Blue raspberry, lemonade, fun shark theme</p>
+</div>
+
 
 </div>
 
+
 <div class="card">
 
-<h2>Order Drinks</h2>
+<h2>Place Your Order</h2>
 
 <input id="name" placeholder="Your Name">
 
+
 <select id="drink">
+
 <option>Paloma</option>
+
 <option>Blue Pineapple Margarita</option>
+
 <option>Tequila Sunrise</option>
+
 <option>Kids Shark Attack</option>
+
 </select>
 
-<textarea id="notes" placeholder="Notes (extra lime, less ice, etc.)"></textarea>
 
-<button onclick="sendOrder()">Place Order</button>
+<textarea id="notes" placeholder="Special requests (extra lime, less ice, etc.)"></textarea>
+
+
+<button onclick="sendOrder()">
+Send Order
+</button>
+
 
 <p id="message"></p>
 
 </div>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+
 const firebaseConfig = {
+
 apiKey: "AIzaSyAXy7rKSkKqNxoJmyQcmGojsqmMHNYRk_g",
+
 authDomain: "bar-orders-747e2.firebaseapp.com",
+
 databaseURL: "https://bar-orders-747e2-default-rtdb.firebaseio.com",
+
 projectId: "bar-orders-747e2",
+
 storageBucket: "bar-orders-747e2.firebasestorage.app",
+
 messagingSenderId: "278382423353",
+
 appId: "1:278382423353:web:55c809a236b0099487cce8"
+
 };
 
+
 const app = initializeApp(firebaseConfig);
+
 const database = getDatabase(app);
+
 
 window.sendOrder = function(){
 
+
 let order = {
+
 name: document.getElementById("name").value,
+
 drink: document.getElementById("drink").value,
+
 notes: document.getElementById("notes").value,
+
 time: new Date().toLocaleString()
+
 };
 
-push(ref(database,"orders"),order);
 
-document.getElementById("message").innerHTML="✅ Order sent!";
+push(ref(database,"orders"), order);
 
-}
+
+document.getElementById("message").innerHTML =
+"✅ Order sent successfully!";
+
+
+};
+
 
 </script>
+
 
 </body>
 </html>
