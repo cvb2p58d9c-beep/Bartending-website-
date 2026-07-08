@@ -4,41 +4,51 @@
   <title>Luxury Mobile Bartending</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#111, #2b1f0f);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
 
-    h1 {
-      color: #d4af37;
-    }
+h1 {
+  color: #d4af37;
+  font-size: 35px;
+}
 
-    .card {
-      background: #222;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 15px;
-      max-width: 400px;
-    }
+h2 {
+  color: #d4af37;
+}
 
-    input, select, textarea, button {
-      width: 90%;
-      padding: 12px;
-      margin: 8px;
-      border-radius: 8px;
-      border: none;
-    }
+.card {
+  background: rgba(34,34,34,0.95);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 15px;
+  max-width: 420px;
+}
 
-    button {
-      background: #d4af37;
-      color: black;
-      font-weight: bold;
-    }
-  </style>
+button {
+  background: #d4af37;
+  color: black;
+  font-weight: bold;
+  width: 90%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+input, select, textarea {
+  width: 90%;
+  padding: 12px;
+  margin: 8px;
+  border-radius: 8px;
+  border: none;
+}
+</style>
+
 </head>
 
 <body>
@@ -49,10 +59,17 @@
 <div class="card">
 <h2>Drink Menu</h2>
 
-<p>🍹 Paloma - Grapefruit, tequila, lime</p>
-<p>🍸 Margarita - Tequila, lime, fresh citrus</p>
-<p>🥃 Old Fashioned - Whiskey, bitters</p>
-<p>🌿 Mojito - Mint, lime, rum</p>
+<p>🍹 <b>Paloma</b><br>
+Tequila, grapefruit, fresh lime</p>
+
+<p>🍸 <b>Blue Pineapple Margarita</b><br>
+Tequila, pineapple juice, lime, blue citrus</p>
+
+<p>🌅 <b>Tequila Sunrise</b><br>
+Tequila, orange juice, grenadine</p>
+
+<p>🦈 <b>Kids Shark Attack</b><br>
+Blue raspberry, lemonade, fun shark theme</p>
 
 </div>
 
@@ -63,10 +80,10 @@
 <input id="name" placeholder="Your Name">
 
 <select id="drink">
-  <option>Paloma</option>
-  <option>Margarita</option>
-  <option>Old Fashioned</option>
-  <option>Mojito</option>
+<option>Paloma</option>
+<option>Blue Pineapple Margarita</option>
+<option>Tequila Sunrise</option>
+<option>Kids Shark Attack</option>
 </select>
 
 <textarea id="notes" placeholder="Notes (extra lime, less ice, etc.)"></textarea>
@@ -77,43 +94,40 @@
 
 </div>
 
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAXy7rKSkKqNxoJmyQcmGojsqmMHNYRk_g",
-  authDomain: "bar-orders-747e2.firebaseapp.com",
-  databaseURL: "https://bar-orders-747e2-default-rtdb.firebaseio.com",
-  projectId: "bar-orders-747e2",
-  storageBucket: "bar-orders-747e2.firebasestorage.app",
-  messagingSenderId: "278382423353",
-  appId: "1:278382423353:web:55c809a236b0099487cce8"
+apiKey: "AIzaSyAXy7rKSkKqNxoJmyQcmGojsqmMHNYRk_g",
+authDomain: "bar-orders-747e2.firebaseapp.com",
+databaseURL: "https://bar-orders-747e2-default-rtdb.firebaseio.com",
+projectId: "bar-orders-747e2",
+storageBucket: "bar-orders-747e2.firebasestorage.app",
+messagingSenderId: "278382423353",
+appId: "1:278382423353:web:55c809a236b0099487cce8"
 };
-
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+window.sendOrder = function(){
 
-window.sendOrder = function() {
-
-  let order = {
-    name: document.getElementById("name").value,
-    drink: document.getElementById("drink").value,
-    notes: document.getElementById("notes").value
-  };
-
-  push(ref(database, "orders"), order);
-
-  document.getElementById("message").innerHTML = "Order sent!";
+let order = {
+name: document.getElementById("name").value,
+drink: document.getElementById("drink").value,
+notes: document.getElementById("notes").value,
+time: new Date().toLocaleString()
 };
 
-</script>
+push(ref(database,"orders"),order);
 
+document.getElementById("message").innerHTML="✅ Order sent!";
+
+}
+
+</script>
 
 </body>
 </html>
