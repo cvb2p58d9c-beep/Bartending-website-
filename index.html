@@ -15,11 +15,6 @@
 
     h1 {
       color: #d4af37;
-      font-size: 35px;
-    }
-
-    h2 {
-      color: #d4af37;
     }
 
     .card {
@@ -27,7 +22,7 @@
       padding: 20px;
       margin: 20px auto;
       border-radius: 15px;
-      max-width: 420px;
+      max-width: 400px;
     }
 
     input, select, textarea, button {
@@ -36,14 +31,12 @@
       margin: 8px;
       border-radius: 8px;
       border: none;
-      font-size: 16px;
     }
 
     button {
       background: #d4af37;
       color: black;
       font-weight: bold;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -53,18 +46,15 @@
 <h1>Luxury Mobile Bartending</h1>
 <p>Handcrafted Cocktails for every celebration</p>
 
-
 <div class="card">
 <h2>Drink Menu</h2>
 
-<p>🍹 <b>Paloma</b><br>
-Tequila, grapefruit, fresh lime</p>
-
-<p>🍸 <b>Margarita</b><br>
-Tequila, fresh lime, citrus</p>
+<p>🍹 Paloma - Grapefruit, tequila, lime</p>
+<p>🍸 Margarita - Tequila, lime, fresh citrus</p>
+<p>🥃 Old Fashioned - Whiskey, bitters</p>
+<p>🌿 Mojito - Mint, lime, rum</p>
 
 </div>
-
 
 <div class="card">
 
@@ -75,6 +65,8 @@ Tequila, fresh lime, citrus</p>
 <select id="drink">
   <option>Paloma</option>
   <option>Margarita</option>
+  <option>Old Fashioned</option>
+  <option>Mojito</option>
 </select>
 
 <textarea id="notes" placeholder="Notes (extra lime, less ice, etc.)"></textarea>
@@ -112,17 +104,16 @@ window.sendOrder = function() {
   let order = {
     name: document.getElementById("name").value,
     drink: document.getElementById("drink").value,
-    notes: document.getElementById("notes").value,
-    time: new Date().toLocaleString()
+    notes: document.getElementById("notes").value
   };
 
   push(ref(database, "orders"), order);
 
-  document.getElementById("message").innerHTML = "✅ Order sent!";
-
+  document.getElementById("message").innerHTML = "Order sent!";
 };
 
 </script>
 
+
 </body>
-</htm
+</html>
